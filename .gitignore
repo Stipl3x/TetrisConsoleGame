@@ -1,0 +1,9 @@
+######################
+# VS Generated Files #
+######################
+.vs/
+bin/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
