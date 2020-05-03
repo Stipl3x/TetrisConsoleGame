@@ -167,11 +167,7 @@ void RunGame()
 
     while (b_isRunning)
     {
-        // Aprox time for a single tick
-        Sleep(50);
-        currentTick++;
-
-        if (currentTick >= NUMBER_OF_TICKS)
+        if (currentTick++ >= NUMBER_OF_TICKS)
         {
             b_isTimeToUpdate = true;
         }
@@ -191,6 +187,12 @@ void RunGame()
             // Update game and add a new piece
             else
             {
+                // If a new piece was generated and it collides with the board, then end game
+                if (tetrisBoard.isGoingToCollide(currentShape, SHAPE_WIDTH, SHAPE_HEIGHT, currentXPostion, currentYPosition))
+                {
+                    b_isRunning = false;
+                }
+
                 for (int heightIndex = 0; heightIndex < 4; heightIndex++)
                 {
                     for (int widthIndex = 0; widthIndex < 4; widthIndex++)
@@ -227,11 +229,8 @@ void RunGame()
             tetrisBoard.displayFutureGameObject(futureShape, SHAPE_WIDTH, SHAPE_HEIGHT);
         }
 
-        // If a new piece was generated and it collides with the board, then end game
-        if (tetrisBoard.isGoingToCollide(currentShape, SHAPE_WIDTH, SHAPE_HEIGHT, currentXPostion, currentYPosition))
-        {
-            b_isRunning = false;
-        }
+        // Delay for each loop frame
+        Sleep(50);
     }
     
     return;
